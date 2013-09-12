@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>cs129 / Image Alignment with Pyramids</title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+<script src="highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  	display: block;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 900px;
+}
+
+tr {
+	width: 100%;
+	display: block;
+}
+
+td{
+	border-style: solid;
+	border-width: 0px;
+	border-color: black;
+	width: 100%;
+	text-align: center;
+	display: block;
+}
+
+#contents a {
+}
+
+.center {
+	margin: auto;
+	width: 90%;
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Kaijian Gao <span style="color: #DE3737">(kgao)</span></h1>
+</div>
+</div>
+<div class="container">
+
+<h2>CS129 / Project 1 / Image Alignment with Pyramids</h2>
+
+<div style="float:left; width: 100%; clear:both;">
+<img style="width: 100%" src="images/teaser.jpg" />
+</div>
+<p> 	This project aims to produce color photos by aligning and combining three grayscale images each representing one color channel (red, green, and blue). This process of taking pictures through color filters and combining them afterwards was invented by photographer Sergei Mikhailovich Prokudin-Gorskii (1863-1944), producing the first color photos in the world.
+</p>
+
+<h3>Algorithm</h3>
+<h4><i>- Alignment</i></h4>
+<p> 
+	
+	The process of producing the final image consists of the following steps: crop the original image into 3 equal size images, align the images, then recombine them in their color channels.
+	For this project, I only had to work on the alignment portion of it.
+</p>
+<p>
+	I shifted the green channel and red channel images to the blue channel image. The metrics used for alignment is simple. It was given that we can assume that the best alignment can be found by shifting the images up to 15 pixels in each direction.
+	I shifted the green channel and red channel images 16 pixels in each direction and compared obtained the sum of squared differences between each shifted image and the blue channel image. I record the amount of shifting that produced the least sum of squared differences, and use that value for alignment.
+</p>
+<h4><i>- 	Image Pyramid Optimization</i></h4>
+<p>
+	An exhaustive search of the optimal translation will be very computationally expensive on large images or with large shift ranges. To remedy this, a coarse-to-fine searching algorithm can be applied using image pyramids.
+	I downsampled the images 4 times, and started searching for the optimal shift position from the most coarse image, which in this case is 1/16 the size of the original image. This approach greatly improves the speed of the operation.
+</p>
+<h3>Extra Credits</h3>
+<p>I tried to remove some of the borders on the images prior to alignment, so as to improve the accuracy. I calculated the average intensities of an entire row or column, starting from the borders. If the average value of a row or column in the image is close to 1 or 0, I treat it as a border and remove that number of rows and columns from the images of all three color channels.</p>
+
+<h3>Results</h3>
+
+<table border=1 style="width:100%; display:block;">
+<tr>
+<td>
+	<img class="center" src="images/00125v.jpg"/><br>
+	<img class="center" src="images/00149v.jpg"/><br>
+	<img class="center" src="images/00153v.jpg"/><br>
+	<img class="center" src="images/00154v.jpg"/><br>
+	<img class="center" src="images/00270v.jpg"/><br>
+	<img class="center" src="images/00398v.jpg"/><br>
+	<img class="center" src="images/01043u.jpg"/><br>
+	<img class="center" src="images/01167v.jpg"/><br>
+	<img class="center" src="images/00902v.jpg"/><br>
+	<img class="center" src="images/00955r.jpg"/><br>
+</td>
+</tr>
+
+
+
+</table>
+
+<br><br>
+<h3>Conclusion</h3>
+<p>
+	Since my range for searching for the optimal shift is only 16 pixels wide, the alignment did not work very well on very large images, where the displacement could be way beyond 15 pixels.<br>
+	Interestingly, image alignments look different depending on how many levels of the image pyramid was utilized. For example, the picture of the Tzar looks better with 3 levels of image pyramid compared to the image produced by using 5 levels of the image pyramid.
+	Some other pictures look better with more levels of the image pyramid. This suggests that some information could be lost during the downsampling process that might alter the alignment of the images.
+</p>
+<div style="text-align: center;">
+	<img src="images/00153v.jpg"/><br>
+	<p><b>3 image pyramid levels</b></p>
+	<img src="images/00153v_new.jpg"/><br>
+	<p><b>5 image pyramid levels</b></p>
+</div>
+</body>
+</html>

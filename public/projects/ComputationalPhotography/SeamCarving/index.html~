@@ -1,0 +1,244 @@
+<html>
+<head>
+<title>cs129 / image blending</title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+<script src="highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  vertical-align: middle;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Kaijian Gao <span style="color: #DE3737">(kgao)</span></h1>
+</div>
+</div>
+<div class="container">
+
+<h2>CS129 / Project 3 / Seam Carving</h2>
+
+<div style="float:left; width: 100%; clear:both;">
+<img style="width: 100%" src="images/teaser.png" />
+<p style="font-size: 14px"></p>
+</div>
+
+<p> This project involves a content-aware image-resizing technique called seam carving. When reducing the size of an image, seam carving will calculate the lowest energy seams (connected strand of pixels 1 pixel wide that go through the image), and remove those first. In many cases, the lower energy seams happen to be ones with less content, and removing those seams will preserve the more important information in the original image.
+In a high level, it's algorithm includes the following steps:
+</p>
+
+<ol>
+<li>Calculate the energy of the image to resize across all three color channels. I did this by using a sobel filter and running it on each channel of the image, then adding their absolute values together.</li>
+<li>
+	Find the best (lowest energy) seam to remove. This takes a few steps. First, I generated a scoring matrix the same size of the image, so that I can use dynamic programming to find the lowest energy seam.
+	While I dynamically calculate the energy of the seams row by row, I record for each pixel which pixel it came from. To accomplish this I generated another back-tracing matrix the same size as the image. For each pixel in the scoring matrix (except for the first row), a number, -1, 0, or 1 is placed in the back-tracing matrix to indicate that the pixel belongs to a seam that went through the top-left,top-center, or top-right pixel, respectively.
+	After dynamically calculating the energy of the vertical seams, I can find the total energy values of the seams in the bottom row of the scoring matrix. I choose the minimum of those values, or one of the minimum values, then trace back upwards, using the back-tracing matrix, to find the lowest energy seam.
+</li>
+<li>With the lowest energy seam, I then remove it from the image and obtain a scaled-down image that is content-aware.</li>
+</ol>
+
+<p> The above algorithm is used to calculate lowest energy vertical seams, used for horizontal resizing. To resize vertically, I transposed the source image and ran the same algorithm on it, then rotated the processed image back. </p>
+
+<div style="clear:both">
+<h3>Results</h3>
+
+<p> Below are the results of some of my seam carving trials.</p>
+
+
+<h3>Successful Results</h3>
+
+<table border=1 style="width: 100%">
+<tr>
+<td>
+<img src="images/boat.jpg" style="width: 45%;margin: 2%"/>
+<img src="images/boat.jpg_200x350.jpg"  style="margin-left: 5%">
+<p>From 400x400 to 200x350</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="images/target_01.jpg" style="width: 45%;margin: 2%"/>
+<img src="images/target_01.jpg_350x271.jpg"  style="margin-left: 5%">
+<p>From 500x321 to 350x271</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="images/wyeth.jpg" style="width: 45%;margin: 2%"/>
+<img src="images/wyeth.jpg_150x248.jpg"  style="margin-left: 5%">
+<p>From 350x248 to 150x248</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="images/deadsea.jpg" style="width: 45%;margin: 2%"/>
+<img src="images/deadsea.jpg_380x310.jpg"  style="margin-left: 5%">
+<p>From 480x360 to 380x310</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="images/BroadwayTowerSeamCarvingA.png" style="width: 45%;margin: 2%"/>
+<img src="images/BroadwayTowerSeamCarvingA.png_174x136.png"  style="margin-left: 5%">
+<p>From 274x186 to 174x136</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="images/mountain.jpg" style="width: 45%;margin: 2%"/>
+<img src="images/mountain.jpg_380x270.jpg"  style="margin-left: 5%">
+<p>From 480x320 to 380x270</p>
+</td>
+</tr>
+</table>
+
+<p>The above results all seem to be scaled down pretty well, with most of the important information existing and in proportion.</p>
+<h3>Failure Cases</h3>
+
+<table border=1 style="width: 100%">
+<tr>
+<td>
+<img src="images/monalisa.jpg" style="width: 45%;margin: 2%"/>
+<img src="images/monalisa.jpg_200x486.jpg"  style="margin-left: 5%">
+<p>Mona Lisa, from 400x536 to 200x486</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="images/kandinsky.jpg" style="width: 45%;margin: 2%"/>
+<img src="images/kandinsky.jpg_200x230.jpg"  style="margin-left: 5%">
+<p>Kandinsky, from 400x280 to 200x230</p>
+</td>
+</tr>
+
+</table>
+<div style="clear:both" >
+<p>These cases did not work so well. 
+In the Mona Lisa painting, her hair was considered low energy because it consisted of vertical strands with small amounts of change. But removing the hair largely distorts the painting.
+In the Kandinsky image, the straight lines and shapes were distorted from the original art piece. These are some cases that the algorithm cannot produce very satisfactory results.</p>
+</div>
+</body>
+</html>

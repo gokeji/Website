@@ -1,0 +1,368 @@
+<html>
+<head>
+<title>cs129 / Texture synthesis and transfer with Image Quilting</title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+<script src="highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;4
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  vertical-align: middle;
+}
+
+tr{
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Kaijian Gao <span style="color: #DE3737">(kgao)</span></h1>
+</div>
+</div>
+<div class="container">
+
+<h2>CS129 / Project 4 / Texture synthesis and transfer with Image Quilting</h2>
+
+<div style="float: right; padding: 20px; width:100%;">
+<img src="images/teaser.png"/>
+<p style="font-size: 14px">Image quilting applied to texture synthesis (top row) and transfer (bottom row)</p>
+</div>
+
+<p> 	The purpose of this assignment is two parts: to synthesize a texture and transfer it to another source image, via a technique called image quilting.
+		As shown in the image above, the first row of images demonstrate how to synthesize a texture from a given sample. The texture of the patch of grass is taken and expanded into larger patches of realistic grass texture.
+		The second row demonstrates texture transfer. The toast texture is taken and synthesized in a way that is correspondent to the soruce image(Abraham Lincoln), until we eventually achieve a image of Lincoln in the texture of toast.
+</p>
+
+<div style="clear:both">
+<h3>Algorithm - texture synthesis</h3>
+
+<p> The concept of image quilting is that we take patches of a set sample size from the texture image, and try to use those patches to generate new texture. We also determine the amount of overlap that we want in the generated patches.
+	After the first patch is placed into the output image, the second patch now has an overlapping region with the first patch, and the algorithm goes through all the possible patches from the texture image and finds a best fitting (smallest sum-of-squared distance between texture patch and overlapping region) patch to place at that position.
+	After the output image is filled with patches of synthesized texture, there may still be visible lines where the patches meet. This is remedied by finding a least-error boundary cut at the overlapping region between each of the patches, so that the patches can smoothly transition.  
+</p>
+
+<h3>Results - texture synthesis</h3>
+
+<p>
+	Below I will show the results of the synthesized images. From left to right, I will show 1) the original texture image, 2) synthesized texture from randomly selecting input patches, 3) synthesized texture from intelligently selecting texture patches by finding the minimum ssd between bordering patches, and finally 4) minimum ssd patches while applying minimum error boundary cuts between overlapping regions.
+</p>
+
+<table border=1 style="width:100%;">
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/apples.png" width="24%"/>
+<img src="images/synthesis/apples_random.png"  width="24%"/>
+<img src="images/synthesis/apples_ssd.png" width="24%"/>
+<img src="images/synthesis/apples_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/brick.jpg" width="24%"/>
+<img src="images/synthesis/brick_random.png"  width="24%"/>
+<img src="images/synthesis/brick_ssd.png" width="24%"/>
+<img src="images/synthesis/brick_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/grass.png" width="24%"/>
+<img src="images/synthesis/grass_random.png"  width="24%"/>
+<img src="images/synthesis/grass_ssd.png" width="24%"/>
+<img src="images/synthesis/grass_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/radishes.jpg" width="24%"/>
+<img src="images/synthesis/radishes_random.png"  width="24%"/>
+<img src="images/synthesis/radishes_ssd.png" width="24%"/>
+<img src="images/synthesis/radishes_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/random3.png" width="24%"/>
+<img src="images/synthesis/random3_random.png"  width="24%"/>
+<img src="images/synthesis/random3_ssd.png" width="24%"/>
+<img src="images/synthesis/random3_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/random.png" width="24%"/>
+<img src="images/synthesis/random_random.png"  width="24%"/>
+<img src="images/synthesis/random_ssd.png" width="24%"/>
+<img src="images/synthesis/random_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/rice.bmp" width="24%"/>
+<img src="images/synthesis/rice_random.png"  width="24%"/>
+<img src="images/synthesis/rice_ssd.png" width="24%"/>
+<img src="images/synthesis/rice_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/toast.png" width="24%"/>
+<img src="images/synthesis/toast_random.png"  width="24%"/>
+<img src="images/synthesis/toast_ssd.png" width="24%"/>
+<img src="images/synthesis/toast_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/text.jpg" width="24%"/>
+<img src="images/synthesis/text_random.png"  width="24%"/>
+<img src="images/synthesis/text_ssd.png" width="24%"/>
+<img src="images/synthesis/text_min_cut.png" width="24%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/texture/weave.jpg" width="24%"/>
+<img src="images/synthesis/weave_random.png"  width="24%"/>
+<img src="images/synthesis/weave_ssd.png" width="24%"/>
+<img src="images/synthesis/weave_min_cut.png" width="24%"/>
+</td>
+</tr>
+</table>
+<p>Albeit a little bit of artifacts, most textures were synthesized really well and realistically.</p>
+
+<h3>Algorithm - texture transfer</h3>
+
+<p> 
+	The idea behind texture transfer is very similar to that of texture synthesis, except that when generating each patch, the algorithm also needs to take into consideration some feature of the source image. 
+	My algorithm employed two different feature comparisons: ssd between the texture patch and the source image, or overall intensity between the texture patch and the source image.
+	An alpha value is defined to determine the amount of emphasis to synthesizing a realistic texture and to representing the source image.
+	<br><br>
+	Also, several iterations of texture synthesis is performed over the image, each iteration with a smaller tilesize and overlapsize. This method improves texture transfer and allows the algorithm to first set the tone of the image with larger patches then gradually define it with more precise patches.
+	I used 3 iterations on most of my results.
+	<br><br>
+	The following calculations are done in calculating how much error a texture patch to be inserted has, with regards to the neighboring patches (overlap error), the source image (correspondence error) and with the previously synthesized images(existing error).
+</p>
+<pre><code>
+	error = alpha * (overlap_error + existing_error) + (1-alpha) * correspondence_error;
+
+</code></pre>
+
+<h3>Results - texture transfer</h3>
+
+<table border=1 style="width:100%;">
+<tr>
+<td style=" padding: 1%; width:100%;">
+<img src="images/texture/random.png" width="19%" />
+<img src="images/al.jpg"  width="19%"/>
+<img src="images/al_random_1.jpg" width="19%"/>
+<img src="images/al_random_2.jpg" width="19%"/>
+<img src="images/al_random_3.png" width="19%"/>
+</td>
+
+</tr>
+<tr><td style="border-style:none">Abraham Lincoln synthesized with texture of random.png, from left to right is results of 1st iteration, 2nd, and 3rd.</td></tr>
+
+<tr >
+<td style=" padding: 1%; width:100%;">
+<img src="images/texture/toast.png" width="30%" />
+<img src="images/al.jpg"  width="30%"/>
+<img src="images/al_4passes_ssd.png" width="30%"/>
+</td>
+
+</tr>
+<tr><td style="border-style:none">Abraham Lincoln synthesized with texture of toast, 4 iterations</td></tr>
+
+<tr >
+<td style=" padding: 1%; width:100%;">
+<img src="images/texture/toast.png" width="30%" />
+<img src="images/wml.jpg"  width="30%"/>
+<img src="images/wonmin_3_toast.png" width="30%"/>
+</td>
+
+</tr>
+<tr><td style="border-style:none">Friend Wonmin synthesized with texture of toast, 3 iterations</td></tr>
+
+<tr >
+<td style=" padding: 1%; width:100%;">
+<img src="images/texture/rice.bmp" width="30%" />
+<img src="images/wml.jpg"  width="30%"/>
+<img src="images/wonmin_3.png" width="30%"/>
+</td>
+
+</tr>
+<tr><td style="border-style:none">Friend Wonmin synthesized with texture of rice, 3 iterations</td></tr>
+
+
+
+<tr >
+<td style=" padding: 1%; width:100%;">
+<img src="images/texture/brick.jpg" width="24%" />
+<img src="images/ml.jpg"  width="24%"/>
+<img src="images/ml_brick.png" width="24%"/>
+<img src="images/ml_brick_intensity.png" width="24%"/>
+</td>
+
+</tr>
+<tr><td style="border-style:none">Marilyn Monroe synthsized with brick texture, first result is using ssd, second using overall intensity</td></tr>
+
+
+
+<tr >
+<td style=" padding: 1%; width:100%;">
+<img src="images/texture/grass.png" width="24%" />
+<img src="images/moon.jpg"  width="24%"/>
+<img src="images/moon_grass.png" width="24%"/>
+<img src="images/moon_grass_emphasize_texture.png" width="24%"/>
+</td>
+
+</tr>
+<tr><td style="border-style:none">Picture of moon synthesized with grass texture. First result emphasizes resemblance to source image, second result emphasizes realistic texture.</td></tr>
+
+<tr >
+<td style=" padding: 1%; width:100%;">
+<img src="images/texture/brick.jpg" width="24%" />
+<img src="images/puppy.jpg"  width="24%"/>
+<img src="images/dog_brick.png" width="24%"/>
+<img src="images/dog_brick_emphasize.png" width="24%"/>
+</td>
+
+</tr>
+<tr><td style="border-style:none">Picture of moon synthesized with grass texture. First result emphasizes resemblance to source image, second result emphasizes realistic texture.</td></tr>
+
+</table>
+
+<div style="clear:both" >
+<p> 	As it can be seen the synthesized results are quite good in some textures, such as the toast and rice, but less so in other more structured ones, such as grass and brick. 
+		As it turns out some of the other textures such as text has too many white spaces to synthesize realistic images.
+</p>
+</div>
+</body>
+</html>

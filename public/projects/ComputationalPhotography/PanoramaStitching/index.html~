@@ -1,0 +1,230 @@
+<html>
+<head>
+<title>cs129 / Automated Panorama Stitching</title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+<script src="highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  vertical-align: middle;
+	margin-bottom: 4%;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Kaijian Gao <span style="color: #DE3737">(kgao)</span></h1>
+</div>
+</div>
+<div class="container">
+
+<h2>CS129 / Project 6 / Automated Panorama Stitching</h2>
+
+<div style="width: 100%; float: right; padding: 20px">
+<img style = "width: 100%;" src="images/panorama.jpg" />
+</div>
+
+<p> 	The purpose of this project is to automatically stitch images of the same scene together into a panorama view. This is done by finding corresponding points from the images and transforming the images so that the corresponding points match.</p>
+
+<h3>Algorithm</h3>
+<p> The algorithm for panorama stitching involves several steps:</p>
+
+<ol>
+<li>Define correspondences between the two images</li>
+<li>Recover the homography using RANSAC</li>
+<li>Warp one image using the recovered homography</li>
+<li>Composite the images</li>
+</ol>
+
+<p> 	For the first step, I first used a Harris corner detection algorithm to derive interest points that can be potential matching points.
+		These interest points are then reduced with the ANMS (Adaptive Non-maximal Suppression) algorithm, so that I could save algorithm runtime with less interest points that cover the image space more evenly.
+		Then, for each interest point, I obtain a feature descriptor from it. I use a 40*40 frame of the grayscaled input image centered at the interest point to produce a 8*8 feature descriptor, choosing one pixel every 5 elements.
+		This descriptor is used in comparison with features from the other image to find correspondence. This is done by first calculating the SSD difference between each of the feature descriptors, then finding the ratio between the minimum SSD and the second minimum SSD. If this ratio is below a certain error threshold, I consider it as a potential point for feature matching. 
+		</p>
+<p>
+	For the second step, I used 1000 iterations to find the best 4 points from the two images to use to produce the homograph. The best homograph is the one with the most inliers, and inliers are decided by the nubmer of sample points in the first image that can be matched by the homograph correctly onto the second image at an error of 0.5 pixels or less.
+</p>
+
+<p>The third step is a simple image transformation using the homography obtained from the previous step. New image boundaries are calculated.</p>
+<p>The last step is a simple algorithm that averages the overlapping region of the images</p>
+<div style="clear:both">
+<h3>Results</h3>
+
+<p> 	Below I show the results of the panorama stitches I attempted</p>
+
+<table border=1 style="width:100%;">
+<tr>
+<td>Image of train. From left to right: Harris corner detection points, matching points, stitch results</td>
+</tr>
+<tr>
+<td style='text-align: center'>
+
+<img src="images/train_corner.png" width="40%"/>
+<img src="images/train_matches.png"  width="48%"/>
+<img src="images/panorama001.jpg" width="90%"/>
+</td>
+</tr>
+
+<tr>
+<td>Image of mountain. From left to right: Harris corner detection points, matching points, stitch results</td>
+</tr>
+<tr>
+<td style='text-align: center'>
+
+<img src="images/mountain_corner.png" width="40%"/>
+<img src="images/mountain_matches.png"  width="48%"/>
+<img src="images/panorama002.jpg" width="90%"/>
+</td>
+</tr>
+
+<tr>
+<td>Image of mountain. From left to right: Harris corner detection points, matching points, stitch results(bottom)</td>
+</tr>
+<tr>
+<td style='text-align: center'>
+
+<img src="images/lake_corner.png" width="40%"/>
+<img src="images/lake_matches.png"  width="47%"/>
+<img src="images/panorama003.jpg" width="80%"/>
+</td>
+</tr>
+
+<tr>
+<td>Image of mountain. From left to right: Harris corner detection points, matching points for image 1 and 2, matching points for image 3 and 4, stitch results (bottom)</td>
+</tr>
+<tr>
+<td style='text-align: center'>
+
+<img src="images/office_corner.png" width="30%"/>
+<img src="images/office_matches1.png"  width="33%"/>
+<img src="images/office_matches2.png"  width="33%"/>
+<img  src="images/panorama004.jpg" width="90%"/>
+</td>
+</tr>
+
+</table>
+
+
+
+<div style="clear:both" >
+<p> 	The top three results are satisfactory, but with a slight blur to the images at the points of overlap. This is a result of imperfect homographies. There seems to be a level of randomness caused by the RANSAC algorithm, and sometimes the results generated can be significantly better, or much worse.
+The last image is a failure case. it seems that for a lot of the overlap regions only a portion is matched up, whereas the other points are not. This could be a result of the interest points not adequately covering portions of the input image, and can be remedied by decreasing the sensitivity of the corner detection algorithm.</p>
+</div>
+</body>
+</html>

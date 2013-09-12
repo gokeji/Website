@@ -1,0 +1,243 @@
+<html>
+<head>
+<title>cs129 / image blending</title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+<script src="highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  vertical-align: middle;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Kaijian Gao <span style="color: #DE3737">(kgao)</span></h1>
+</div>
+</div>
+<div class="container">
+
+<h2>CS129 / Project 2 / Image Blending</h2>
+
+<div style="float: right; padding: 20px">
+<img src="image_equation.jpg" />
+<p style="font-size: 14px"></p>
+</div>
+
+<p> This project aims to do a seamless integration of images, such as seen on the image above. To achieve this, we need three items:</p>
+
+<ol>
+<li>The source image - image that is to be placed into new image</li>
+<li>mask - mask showing which parts of the source image needs to enter the new image. Results will be significantly better with a well formulated mask</li>
+<li>A target image - image where the source image is placed in</li>
+</ol>
+
+<p> 	</p>
+
+<div style="clear:both">
+<h3>Algorithm</h3>
+
+<div style="float: right; padding: 20px">
+<img src="badresult_01.jpg" />
+<p style="font-size: 14px">obvious borders are created</p>
+</div>
+
+<p> 	Simply placing the source image into the target creates obvious borders between the images, such as in the image on the right.</p>
+<p> To eliminate this problem, our algorithm is to do a poisson blending on the edges. That is, make sure the inserted pixels' values relative to their neighbors are equivalent with the value the pixels in the source image have with their neighbors.
+The following equation is used to ensure this, where v is the matrix representing the pixels to be inserted, and s is the matrix containing all pixels in the source image. i and j correspond to the row and column of the pixel in the image, respectively.</p>
+
+<br>
+4*v(i,j) - v(i-1, j) - v(i+1, j) - v(i, j-1) - v(i, j+1) = 4*s(i,j) - s(i-1, j) - s(i+1, j) - s(i, j-1) - s(i, j+1)
+
+
+<p>Using linear algebra to compute v, we can achieve seamless image blending, results are shown below, including an example that I created myself.</p>
+
+<h3>Results in a table</h3>
+
+<table border=1, style="width : 100%;">
+<tr>
+<td>
+<img src="target_01.jpg" width="24%"/>
+<img src="mask_01.jpg"  width="24%"/>
+<img src="source_01.jpg" width="24%"/>
+<img src="result_01.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="target_02.jpg" width="24%"/>
+<img src="mask_02.jpg"  width="24%"/>
+<img src="source_02.jpg" width="24%"/>
+<img src="result_02.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="target_03.jpg" width="24%"/>
+<img src="mask_03.jpg"  width="24%"/>
+<img src="source_03.jpg" width="24%"/>
+<img src="result_03.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="target_04.jpg" width="24%"/>
+<img src="mask_04.jpg"  width="24%"/>
+<img src="source_04.jpg" width="24%"/>
+<img src="result_04.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="target_05.jpg" width="24%"/>
+<img src="mask_05.jpg"  width="24%"/>
+<img src="source_05.jpg" width="24%"/>
+<img src="result_05.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="target_06.jpg" width="24%"/>
+<img src="mask_06.jpg"  width="24%"/>
+<img src="source_06.jpg" width="24%"/>
+<img src="result_06.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="target_07.jpg" width="24%"/>
+<img src="mask_07.jpg"  width="24%"/>
+<img src="source_07.jpg" width="24%"/>
+<img src="result_07.jpg" width="24%"/>
+</td>
+</tr>
+
+</table>
+
+<div style="clear:both" >
+<p> As we can see, the above images blend quite well with the target images. </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<html>
+<head>
+<title>cs129 / Texture synthesis and transfer with Image Quilting</title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+<script src="highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;4
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  vertical-align: middle;
+}
+
+tr{
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+img .rb{
+	width: 30%;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Kaijian Gao <span style="color: #DE3737">(kgao)</span></h1>
+</div>
+</div>
+<div class="container">
+
+<h2>CS129 / Final Project / Image Analogies</h2>
+
+<div style="float: right; padding: 20px; width:100%;">
+
+</div>
+
+<p> 	
+	Image analogies is a way to transfer image changes. If image A' is image A rendered in a certain way, image analogies makes it possible to apply the change from A to A' to a second image B, and produce the resulting B'. This concept is described in <a src="http://mrl.nyu.edu/publications/image-analogies/analogies-300dpi.pdf">Image analogies (Hertzmann, 2001)</a>. Image analogies has many applications. It can reproduce filters, synthesize texture, recreate color, etc. I implemented a simplified version of Hertzmann's studies that achieved some of these features.
+</p>
+
+<div style="clear:both">
+		<img src="images/teaser.png" alt="teaser" />
+		
+		</div>
+<h3>Algorithm</h3>
+
+<p> 
+	The algorithm takes several steps. First, input images A, A', and B are all converted from RGB color space to YIQ color space. This is because humans are more sensitive to luminance than color, and it is also more complex to compute for all 3 colors. Hence, only the Y channel (luminance) of the images is used to create features and be compared.
+	<br><br>
+	We build features from the Y channels of A, A', and B. The feature for each point in the images is simply a 5x5 window around the point. Features of B is computed as its elements are created. Since B' is computed in a scan-line order, by the time features for B' are needed, there will only be the neighbors with a lesser row and column number that will be needed. Hence, features of A' and B' only need to be 12 elements as opposed to 25.
+	<br><br>
+	B' is generated in a scan-line order. Let's say q is the current pixel locaion in B' that is being generated, and it will eventually be mapped to a point p in A and A'. The features of A and A' are compared with the features of B and B' at point q, and a approximate nearest neighbors (ANN) algorithm is employed to find the closest match between the features of A and B(q). I used this implementation of <a src="http://www.cs.ubc.ca/~mariusm/index.php/FLANN/FLANN">FLANN</a> (Fast Library for Approximate Nearest Neighbors) to increase efficiency. After a match p is found for B'(q), the value of A'(p) is given to B'(q). Then, depending on the scenario, the chrominance information of either A'(p) or B(q) will be applied to B'(q). 
+</p>
+<div style="clear:both">
+<img src="images/newshore_blur_single.jpg"/></div>
+
+<h3>Results</h3>
+<h4>Artistic Filters</h4>
+
+<p>
+	From left to right, you will see the source images A, A', and B, and finally the output image B'.
+</p>
+<table border=1 style="width:100%;">
+<tr >
+<td style=" padding: 1%;">
+<img src="images/freud_A.png" width="22%"/>
+<img src="images/freud_A_filtered.png"  width="22%"/>
+<img src="images/bird.jpg" width="22%"/>
+<img class = 'rb' src="images/bird_art2.jpg" width="29%"/>
+</td>
+</tr>
+
+
+<tr >
+<tr >
+<td style=" padding: 1%;">
+<img src="images/campfire.jpg" width="22%"/>
+<img src="images/campfire_cartooned.jpg"  width="22%"/>
+<img src="images/mario.jpg" width="22%"/>
+<img class = 'rb' src="images/mario_cartoon2.jpg" width="31%"/>
+</td>
+</tr>
+
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/freud_A.png" width="22%"/>
+<img src="images/freud_A_filtered.png"  width="22%"/>
+<img src="images/newshore.jpg" width="22%"/>
+<img class = 'rb' src="images/newshore_art2.jpg" width="29%"/>
+</td>
+</tr>
+
+<tr >
+<tr >
+<td style=" padding: 1%;">
+<img src="images/campfire.jpg" width="22%"/>
+<img src="images/campfire_cartooned.jpg"  width="22%"/>
+<img src="images/newflower_A.jpg" width="22%"/>
+<img class = 'rb' src="images/newflower_cartooned_single2.jpg" width="31%"/>
+</td>
+</tr>
+
+
+
+
+</table>
+
+
+<h4>Normal Filters</h4>
+<table border=1 style="width:100%;">
+
+<tr >
+<tr >
+<td style=" padding: 1%;">
+<img src="images/newflower_A.jpg" width="22%"/>
+<img src="images/newflower_emboss.jpg"  width="22%"/>
+<img src="images/newshore.jpg" width="22%"/>
+<img class = 'rb' src="images/newshore_emboss2.jpg" width="31%"/>
+</td>
+</tr>
+
+</table>
+<h4>Recoloring</h4>
+<table border=1 style="width:100%;">
+<tr >
+<td style=" padding: 1%;">
+<img src="images/ant2.jpg" width="22%"/>
+<img src="images/ant.jpg"  width="22%"/>
+<img src="images/scan.png" width="22%"/>
+<img class = 'rb' src="images/scan_color2.jpg" width="29%"/>
+</td>
+</tr>
+
+
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/welsh_A.jpg" width="22%"/>
+<img src="images/welsh_A_colored.jpg"  width="22%"/>
+<img src="images/welsh_B.jpg" width="22%"/>
+<img class = 'rb' src="images/welsh_color2.jpg" width="29%"/>
+</td>
+</tr>
+
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/darkclouds2.jpg" width="22%"/>
+<img src="images/darkclouds.png"  width="22%"/>
+<img src="images/welsh_B.jpg" width="22%"/>
+<img class = 'rb' src="images/welsh_color4.jpg" width="29%"/>
+</td>
+</tr>
+</table>
+<h4>Generating image from numbers</h4>
+<table border=1 style="width:100%;">
+<tr >
+<td style=" padding: 1%;">
+<img src="images/city.jpg" width="22%"/>
+<img src="images/city_filtered.jpg"  width="22%"/>
+<img src="images/city_2.jpg" width="22%"/>
+<img class = 'rb' src="images/city_number2.jpg" width="31%"/>
+</td>
+</tr>
+
+
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/searock.jpg" width="22%"/>
+<img src="images/searock_filtered.jpg"  width="22%"/>
+<img src="images/searock_2.jpg" width="22%"/>
+<img class = 'rb' src="images/searock_number2.jpg" width="29%"/>
+</td>
+</tr>
+
+<tr >
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/neworleans_A.jpg" width="22%"/>
+<img src="images/neworleans_A_filtered.jpg"  width="22%"/>
+<img src="images/neworleans_B.jpg" width="22%"/>
+<img class = 'rb' src="images/neworleans_number2.jpg" width="29%"/>
+</td>
+</tr>
+
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/oxbow_A.png" width="22%"/>
+<img src="images/oxbow_A_filtered.png"  width="22%"/>
+<img src="images/oxbow_B.png" width="22%"/>
+<img class = 'rb' src="images/oxbow_number_single2.jpg" width="29%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/forest.jpg" width="22%"/>
+<img src="images/forest_filtered.jpg"  width="22%"/>
+<img src="images/forest_2.jpg" width="22%"/>
+<img class = 'rb' src="images/forest_number2.jpg" width="31%"/>
+</td>
+</tr>
+
+
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/forest.jpg" width="22%"/>
+<img src="images/forest_filtered.jpg"  width="22%"/>
+<img src="images/forest_2.jpg" width="22%"/>
+<img class = 'rb' src="images/forest_number4.jpg" width="31%"/>
+</td>
+</tr>
+</table>
+<h4>Texture Synthesis</h4>
+<table border=1 style="width:100%;">
+<tr >
+<tr >
+<td style=" padding: 1%;">
+<img src="images/wml.jpg" width="22%"/>
+<img src="images/wonmin_3.png"  width="22%"/>
+<img src="images/mario.jpg" width="22%"/>
+<img class = 'rb' src="images/mario_rice2.jpg" width="31%"/>
+</td>
+</tr>
+
+<tr >
+<tr >
+<td style=" padding: 1%;">
+<img src="images/al.jpg" width="22%"/>
+<img src="images/al_texture.png"  width="22%"/>
+<img src="images/mario.jpg" width="22%"/>
+<img class = 'rb' src="images/mario_texture2.jpg" width="31%"/>
+</td>
+</tr>
+
+</table>
+<h4>Super Resolution</h4>
+<table border=1 style="width:100%;">
+
+<td style=" padding: 1%;">
+<img src="images/mapleA.jpg" width="22%"/>
+<img src="images/mapleAp.jpg"  width="22%"/>
+<img src="images/mapleB.jpg" width="22%"/>
+<img class = 'rb' src="images/tree_superres2.jpg" width="29%"/>
+</td>
+</tr>
+
+<tr >
+<td style=" padding: 1%;">
+<img src="images/mapleA.jpg" width="22%"/>
+<img src="images/mapleAp.jpg"  width="22%"/>
+<img src="images/mapleB.jpg" width="22%"/>
+<img class = 'rb' src="images/tree_superres4.jpg" width="29%"/>
+</td>
+</tr>
+
+</table>
+
+
+
+
+
+
+
+
+<div style="clear:both" >
+<p> 	
+</p>
+</div>
+</body>
+</html>

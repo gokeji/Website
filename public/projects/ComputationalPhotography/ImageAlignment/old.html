@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="home.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1><b>CS129 Project 1 - Image Alignment with Pyramids</b></h1>
+			<h2>By: Kaijian Gao (kgao)</h2>
+			<h2>September 17th 2012</h2>
+			
+			<div class="section">
+				<div class="subsection">
+					<p><b class="section_title">Purpose</b></p>
+					<p>
+						This project aims to produce color photos by aligning and combining three grayscale images each representing one color channel (red, green, and blue). 
+						This process of taking pictures through color filters and combining them afterwards was invented by photographer Sergei Mikhailovich Prokudin-Gorskii (1863-1944), producing the first color photos in the world.
+						
+					</p>
+					<img class="center" src="images/teaser.jpg"/>
+				</div>
+			</div>
+			<div class="section">
+				<div class="subsection">
+					<p>
+						<b class="section_title">Algorithm</b><br><br>
+						
+						<b>Alignment</b>
+						<br><br>
+						The process of producing the final image consists of the following steps: crop the original image into 3 equal size images, align the images, then recombine them in their color channels.
+						For this project, I only had to work on the alignment portion of it.
+					</p>
+					<p>
+						I shifted the green channel and red channel images to the blue channel image. The metrics used for alignment is simple. It was given that we can assume that the best alignment can be found by shifting the images up to 15 pixels in each direction.
+						I shifted the green channel and red channel images 16 pixels in each direction and compared obtained the sum of squared differences between each shifted image and the blue channel image. I record the amount of shifting that produced the least sum of squared differences, and use that value for alignment.
+					</p>
+					<p>
+						<b>Image Pyramid Optimization</b><br><br>
+						An exhaustive search of the optimal translation will be very computationally expensive on large images or with large shift ranges. To remedy this, a coarse-to-fine searching algorithm can be applied using image pyramids.
+						I downsampled the images 4 times, and started searching for the optimal shift position from the most coarse image, which in this case is 1/16 the size of the original image. This approach greatly improves the speed of the operation.
+					</p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="subsection">
+					<p>
+						<b class="section_title">Extra Credits</b><br><br>
+					</p>
+					<p>I tried to remove some of the borders on the images prior to alignment, so as to improve the accuracy. I calculated the average intensities of an entire row or column, starting from the borders. If the average value of a row or column in the image is close to 1 or 0, I treat it as a border and remove that number of rows and columns from the images of all three color channels.</p>
+				</div>
+			</div>
+			<div class="section">
+				<div class="subsection">
+					<p>
+						<b class="section_title">Results</b><br><br>
+					</p>
+					<img class="center" src="images/00125v.jpg"/><br>
+					<img class="center" src="images/00149v.jpg"/><br>
+					<img class="center" src="images/00153v.jpg"/><br>
+					<img class="center" src="images/00154v.jpg"/><br>
+					<img class="center" src="images/00270v.jpg"/><br>
+					<img class="center" src="images/00398v.jpg"/><br>
+					<img class="center" src="images/01043u.jpg"/><br>
+					<img class="center" src="images/01167v.jpg"/><br>
+					<img class="center" src="images/00902v.jpg"/><br>
+					<img class="center" src="images/00955r.jpg"/><br>
+				</div>
+			</div>
+			<div class="section">
+				<div class="subsection">
+					<p>
+						<b class="section_title">Conclusion</b><br><br>
+					</p>
+					<p>
+						Since my range for searching for the optimal shift is only 16 pixels wide, the alignment did not work very well on very large images, where the displacement could be way beyond 15 pixels.<br>
+						Interestingly, image alignments look different depending on how many levels of the image pyramid was utilized. For example, the picture of the Tzar looks better with 3 levels of image pyramid compared to the image produced by using 5 levels of the image pyramid.
+						Some other pictures look better with more levels of the image pyramid. This suggests that some information could be lost during the downsampling process that might alter the alignment of the images.
+					</p>
+					<img class="center" src="images/00153v.jpg"/><br>
+					<p style="text-align: center">3 image pyramid levels</p>
+					<img class="center" src="images/00153v_new.jpg"/><br>
+					<p style="text-align: center">5 image pyramid levels</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
