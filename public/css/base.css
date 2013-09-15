@@ -65,7 +65,7 @@
 
 	#intro-jumbo {
 		margin: 0px;
-		background-color: rgba(256, 256, 256, 0.8);
+		background-color: rgba(255, 255, 255, 0.8);
 		border-radius: 25px;
 		float: right;
 	}
@@ -84,17 +84,6 @@
 
 #Contact {
 	background-color: black;
-}
-
-@media screen and (min-width: 1600px) {
-    .container {
-        max-width: (1600px - @grid-gutter-width);
-    }
-}
-@media screen and (min-width: 1900px) {
-    .container {
-        max-width: (1900px - @grid-gutter-width);
-    }
 }
 
 @media screen and (max-width: 970px) {
