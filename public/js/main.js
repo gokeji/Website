@@ -10,13 +10,16 @@ $(document).ready(function ($) {
 	// Smooth scrolling to anchors
 
   	var $root = $('html, body');
-	$('a').click(function() {
+	$('#navbar a').click(function() {
 	    var href = $.attr(this, 'href');
 	    $root.animate({
 	        scrollTop: $(href).offset().top - navbarHeight
 	    }, 500, function () {
 	        window.location.hash = href;
 	    });
+
+	    // fix bug where navbar wouldn't stay on top in iphone
+	    $('#navbar').scrollTop($('body').scrollTop());
 	    return false;
 	});
   	$('#navbar').scrollspy();
