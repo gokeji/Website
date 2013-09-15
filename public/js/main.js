@@ -1,7 +1,6 @@
 var navbarHeight = 50;
 
 $(document).ready(function ($) {
-	alert($('#navbar').css('position'));
 	// initial Home section resize
 
 	homeResize();
@@ -11,14 +10,11 @@ $(document).ready(function ($) {
 
   	var $root = $('html, body');
 	$('#navbar a').click(function() {
-		alert($('#navbar').css('position'));
 	    var href = $.attr(this, 'href');
 	    $root.animate({
 	        scrollTop: $(href).offset().top - navbarHeight
 	    }, 500, function () {
 	        window.location.hash = href;
-		    // fix bug where navbar wouldn't stay on top in iphone
-		    // $('#navbar').offset({top: $('body').scrollTop(), left:0});
 	    });
 
 
@@ -31,6 +27,12 @@ $(document).ready(function ($) {
 
     $(window).resize(function(){
         homeResize();
+	    $('#navbar').offset({top: $('body').scrollTop(), left:0});
+    });
+
+    $(window).scroll(function(){
+	    // fix bug where navbar wouldn't stay on top in iphone
+	    $('#navbar').offset({top: $('body').scrollTop(), left:0});
     });
 
 
