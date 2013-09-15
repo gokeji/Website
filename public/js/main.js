@@ -27,13 +27,13 @@ $(document).ready(function ($) {
 
     $(window).resize(function(){
         homeResize();
-	    $('#navbar').offset({top: $('body').scrollTop(), left:0});
+	    // $('#navbar').offset({top: $('body').scrollTop(), left:0});
     });
 
-    $(window).scroll(function(){
-	    // fix bug where navbar wouldn't stay on top in iphone
-	    $('#navbar').offset({top: $('body').scrollTop(), left:0});
-    });
+    // $(window).scroll(function(){
+	   //  // fix bug where navbar wouldn't stay on top in iphone
+	   //  $('#navbar').offset({top: $('body').scrollTop(), left:0});
+    // });
 
 
     // Redirect external links
