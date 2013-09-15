@@ -15,7 +15,7 @@ $(document).ready(function ($) {
 	        scrollTop: $(href).offset().top - navbarHeight
 	    }, 500, function () {
 	        window.location.hash = href;
-	        $(document).scroll();
+	        // $(document).scroll();
 	    });
 
 
