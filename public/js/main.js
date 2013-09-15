@@ -1,11 +1,11 @@
+var navbarHeight = 50;
+
 $(document).ready(function ($) {
 
 	// initial Home section resize
 
-	var h = $(window).height() - $('#navbar').height();
-    var w = $(window).width();
-    $("#Home").css('height',h);
-    $("#Home").css('width',w);
+	homeResize();
+
 
 	// Smooth scrolling to anchors
 
@@ -13,7 +13,7 @@ $(document).ready(function ($) {
 	$('a').click(function() {
 	    var href = $.attr(this, 'href');
 	    $root.animate({
-	        scrollTop: $(href).offset().top - $('#navbar').height()
+	        scrollTop: $(href).offset().top - navbarHeight
 	    }, 500, function () {
 	        window.location.hash = href;
 	    });
@@ -25,10 +25,7 @@ $(document).ready(function ($) {
     // resize home section when resizing window
 
     $(window).resize(function(){
-        var h = $(window).height() - $('#navbar').height();
-        var w = $(window).width();
-        $("#Home").css('height',h);
-        $("#Home").css('width',w);
+        homeResize();
     });
 
 
@@ -38,5 +35,12 @@ $(document).ready(function ($) {
 		this.target = "_blank";
 	}); 	
 
-
 });
+
+
+var homeResize = function(){
+	var h = $(window).height() - navbarHeight;
+    var w = $(window).width();
+    $("#Home").css('height',h);
+    $("#Home").css('width',w);
+}
