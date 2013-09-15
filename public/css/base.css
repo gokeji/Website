@@ -119,6 +119,6 @@ body {
 
 	.navbar-fixed-top,
 	.navbar-fixed-bottom {
-		position: fixed;
+		position: fixed !important;
 	}
 }
