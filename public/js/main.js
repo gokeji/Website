@@ -18,7 +18,7 @@ $(document).ready(function ($) {
 	    }, 500, function () {
 	        window.location.hash = href;
 		    // fix bug where navbar wouldn't stay on top in iphone
-		    $('#navbar').offset({top: $('body').scrollTop(), left:0});
+		    // $('#navbar').offset({top: $('body').scrollTop(), left:0});
 	    });
 
 
