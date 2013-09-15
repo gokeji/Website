@@ -16,10 +16,11 @@ $(document).ready(function ($) {
 	        scrollTop: $(href).offset().top - navbarHeight
 	    }, 500, function () {
 	        window.location.hash = href;
+		    // fix bug where navbar wouldn't stay on top in iphone
+		    $('#navbar').offset({top: $('body').offset(), left:0});
 	    });
 
-	    // fix bug where navbar wouldn't stay on top in iphone
-	    $('#navbar').scrollTop($('body').scrollTop());
+
 	    return false;
 	});
   	$('#navbar').scrollspy();

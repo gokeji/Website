@@ -1,6 +1,6 @@
 
 #navbar {
-
+	position: fixed;
 }
 
 	#brand.active {
@@ -119,6 +119,6 @@ body {
 
 	.navbar-fixed-top,
 	.navbar-fixed-bottom {
-		position: fixed !important;
+		position: absolute;
 	}
 }
