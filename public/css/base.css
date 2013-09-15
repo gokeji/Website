@@ -23,11 +23,15 @@
 		color: #1560ca;
 	}
 
+body {
+	padding-top: 50px;
+}
+
 .my-fluid-container {
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  padding-top: 50px;
+  /*padding-top: 50px;*/
 }
 
 .section {
@@ -111,5 +115,10 @@
 
 	#intro-jumbo {
 		float: none;
+	}
+
+	.navbar-fixed-top,
+	.navbar-fixed-bottom {
+		position: fixed;
 	}
 }
