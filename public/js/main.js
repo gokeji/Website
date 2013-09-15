@@ -9,13 +9,13 @@ $(document).ready(function ($) {
 	// Smooth scrolling to anchors
 
   	var $root = $('html, body');
-	$('#navbar a').click(function() {
+	$('#navbar a, a.animate').click(function() {
 	    var href = $.attr(this, 'href');
 	    $root.animate({
 	        scrollTop: $(href).offset().top - navbarHeight
 	    }, 500, function () {
 	        window.location.hash = href;
-	        // $(document).scroll();
+
 	    });
 
 
@@ -47,8 +47,11 @@ $(document).ready(function ($) {
 
 
 var homeResize = function(){
-	var h = $(window).height() - navbarHeight;
+	var h = $(window).height() - $('#navbar').height();
     var w = $(window).width();
     $("#Home").css('height',h);
     $("#Home").css('width',w);
+
+    // needed to make div scroll independantly, but removing feature
+    // $('.my-fluid-container').height(h);
 }
