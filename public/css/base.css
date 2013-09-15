@@ -118,6 +118,6 @@ body {
 	}
 
 	#navbar {
-		position: absolute;
+		position: fixed;
 	}
 }
