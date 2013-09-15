@@ -117,8 +117,7 @@ body {
 		float: none;
 	}
 
-	.navbar-fixed-top,
-	.navbar-fixed-bottom {
-		position: absolute;
+	#navbar {
+		position: fixed;
 	}
 }
