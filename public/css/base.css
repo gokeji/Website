@@ -1,0 +1,126 @@
+
+#navbar {
+
+}
+
+	#brand.active {
+		
+	}
+	#brand.active a{
+		color: #000055;
+	}
+
+	#brand a:hover {
+		color: #000055;
+	}
+
+	#main-nav .active > a{
+		color: #1560ca;
+	}
+
+	#main-nav a:hover{
+		top: -1px;
+		color: #1560ca;
+	}
+
+.my-fluid-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  padding-top: 50px;
+}
+
+.section {
+	background-attachment: scroll;
+	background-position: right center;
+	min-height: 750px;
+	padding-top: 50px;
+	/*margin-top: -50px;*/
+}
+
+
+#Home {
+	background:#7f8c8d;
+	background-color: gray;
+	position: relative;
+	overflow: hidden;
+	
+}
+	
+	#Home .row{
+		margin: 10% auto auto 0px;
+	}
+
+	#intro-bg {
+		background-image: url('../images/intro-bg2.jpg');
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		margin-top: -50px;
+	}
+
+	#intro-jumbo {
+		margin: 0px;
+		background-color: rgba(256, 256, 256, 0.8);
+		border-radius: 25px;
+		float: right;
+	}
+
+#About {
+	background-color: cyan;
+}
+
+#Projects {
+	background-color: silver;
+}
+
+#Resume {
+	background-color: yellow;
+}
+
+#Contact {
+	background-color: black;
+}
+
+@media screen and (min-width: 1600px) {
+    .container {
+        max-width: (1600px - @grid-gutter-width);
+    }
+}
+@media screen and (min-width: 1900px) {
+    .container {
+        max-width: (1900px - @grid-gutter-width);
+    }
+}
+
+@media screen and (max-width: 970px) {
+	#intro-bg {
+		/*-webkit-background-size: auto auto;
+		-moz-background-size: 120% auto;
+		-o-background-size: 120% auto;
+		background-size: auto auto;*/
+		background-repeat: no-repeat;
+		left: 50%;
+		margin-left: -485px;
+		width: 1120px;
+		position: absolute;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	#intro-bg {
+		width: 900px;
+	}
+
+	#Home .row {
+		margin-top: 25%;
+	}
+
+	#intro-jumbo {
+		float: none;
+	}
+}
