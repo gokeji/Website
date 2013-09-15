@@ -1,5 +1,12 @@
 $(document).ready(function ($) {
 
+	// initial Home section resize
+
+	var h = $(window).height() - $('#navbar').height();
+    var w = $(window).width();
+    $("#Home").css('height',h);
+    $("#Home").css('width',w);
+
 	// Smooth scrolling to anchors
 
   	var $root = $('html, body');
