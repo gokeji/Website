@@ -25,6 +25,8 @@
 
 body {
 	padding-top: 50px;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 .my-fluid-container {
