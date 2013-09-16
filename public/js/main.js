@@ -1,13 +1,12 @@
 var navbarHeight = 50;
 
 $(document).ready(function ($) {
-	// initial Home section resize
 
+	// initial Home section resize
 	homeResize();
 
 
 	// Smooth scrolling to anchors
-
   	var $root = $('html, body');
 	$('#navbar a, a.animate').click(function() {
 	    var href = $.attr(this, 'href');
@@ -25,7 +24,6 @@ $(document).ready(function ($) {
   
     
     // resize home section when resizing window
-
     $(window).resize(function(){
         homeResize();
 	    // $('#navbar').offset({top: $('body').scrollTop(), left:0});
@@ -36,9 +34,7 @@ $(document).ready(function ($) {
 	   //  $('#navbar').offset({top: $('body').scrollTop(), left:0});
     // });
 
-
     // Redirect external links
-	
 	$("a[rel='external']").click(function(){
 		this.target = "_blank";
 	}); 	
