@@ -102,7 +102,7 @@ cite:after {
 }
 	
 	.section .vertical-push{
-		padding: 100px 0px 140px 0px;
+		padding: 40px 0px 140px 0px;
 	}
 
 	.section-title {
@@ -188,7 +188,23 @@ cite:after {
 
 #Projects {
 	background-color: silver;
+	background-image: url('../images/projects-bg.jpg');
+	-webkit-background-size: auto 100%;
+	-moz-background-size: auto 100%;
+	-o-background-size: auto 100%;
+	background-size: auto 100%; 
+	background-position: center center;
+	background-attachment: fixed;
+	color: white;
 }
+
+	#Projects h2 {
+		color: white;
+	}
+
+	#Projects hr{
+		border-color: white;
+	}
 
 	#myCarousel {
 		margin: 20px auto;
@@ -243,11 +259,13 @@ cite:after {
 	}
 
 #Resume {
-	background-color: yellow;
+	background-color: white;
+	min-height: 500px;
 }
 
 #Contact {
-	background-color: black;
+	background-color: silver;
+	min-height: 500px;
 }
 
 @media screen and (max-width: 1200px) {

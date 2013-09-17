@@ -34,6 +34,10 @@ $(document).ready(function ($) {
 	   //  $('#navbar').offset({top: $('body').scrollTop(), left:0});
     // });
 
+
+	$('.carousal').carousel({
+		interval: 3000
+	});
     // Redirect external links
 	$("a[rel='external']").click(function(){
 		this.target = "_blank";
