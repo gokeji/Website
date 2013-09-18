@@ -1,7 +1,23 @@
 {
-  "name" : "OnlinePortfolio",
-  "version" : "0.0.1",
-  "dependencies" : {
-    "express" : "3.x"
-  }
+  "name": "OnlinePortfolio",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "3.x",
+    "express-validator": "0.8.x",
+    "emailjs": "0.3.x"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "readmeFilename": "README.md",
+  "gitHead": "0b83a58cc005b1aed69ead75b8f2e26fa10ab958",
+  "description": "Website =======",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gokeji/Website.git"
+  },
+  "author": "Kaijian Gao",
+  "license": "BSD"
 }

@@ -34,8 +34,8 @@ $(document).ready(function ($) {
 	   //  $('#navbar').offset({top: $('body').scrollTop(), left:0});
     // });
 
-
-	$('.carousal').carousel({
+	//start carousel animation
+	$('.carousel').carousel({
 		interval: 3000
 	});
     // Redirect external links
@@ -43,9 +43,41 @@ $(document).ready(function ($) {
 		this.target = "_blank";
 	}); 	
 
+	$('#contactForm').on('submit', function(e){
+		e.preventDefault();
+
+	    // create a FormData dataObject from our form
+	    var fd = new FormData(document.getElementById('contactForm'));
+
+	    // send it to the server
+	    var req = new XMLHttpRequest();
+
+
+	    req.onreadystatechange=function()
+		{
+		  	if (req.readyState==4 && req.status==200){
+		    	clearFormErrors();
+		    	formSuccess();
+		    	return;
+		  	}
+
+		  	else if (req.readyState==4 && req.status==422){
+		    	clearFormErrors();
+		    	formHandler(req.responseText);
+		    	return;
+		  	}
+
+		  	else if (req.readyState==4){
+		  		console.log('error: ' + req.statusText);
+		  	}
+		}
+
+	    req.open('POST', '/message', true);
+	    req.send(fd);
+	});
 });
 
-
+// function that resizes the Home section to the full size of the viewport
 var homeResize = function(){
 	var h = $(window).height() - $('#navbar').height();
     var w = $(window).width();
@@ -54,4 +86,30 @@ var homeResize = function(){
 
     // needed to make div scroll independantly, but removing feature
     // $('.my-fluid-container').height(h);
+}
+
+// function that takes ajax response and looks for form errors to display
+var formHandler = function(data){
+	var dataObject = eval(data);
+	// console.log(data);
+	// console.log(dataObject);
+
+	for(var i = 0; i < dataObject.length; i++){
+		var obj = dataObject[i];
+		$('#'+obj.param+'Form').addClass('has-error');
+		// console.log(obj.param);
+		$('#'+obj.param+'Form .help-block').html(obj.msg);
+		// console.log(obj.msg);
+	}
+}
+
+var clearFormErrors = function(){
+	$('#contactForm > .form-group').removeClass('has-error has-success');
+	$('#contactForm > .form-group > .help-block').html('');
+}
+
+var formSuccess = function(){
+	$('#contactForm > .form-group').addClass('has-success');
+	$('#contactForm > .form-group:first-child > .help-block').html('Message sent!');
+	
 }
