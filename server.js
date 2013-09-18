@@ -22,7 +22,8 @@ app.post('/message', function(req, res){
 	req.assert('message', 'Please enter your message').notEmpty();
 	var name = req.param('name');
 	var email_address = req.param('email');
-	var message = req.param('message');
+	var message_content = req.param('message');
+	var copy = req.param('copy');
 
 	var mappedErrors = req.validationErrors();
 
@@ -47,16 +48,37 @@ app.post('/message', function(req, res){
 
 	// send the message and get a callback with an error or details of the message that was sent
 	server.send({
-	   text:    message, 
+	   text:    message_content, 
 	   from:    name+" <"+email_address+">", 
 	   to:      "Kaijian Gao <kaijian_gao@brown.edu>",
 	   cc:      "Website <contact@kaijiangao.com>",
 	   subject: "Message from website"
-	}, function(err, message) { console.log(err || message); });
+	}, function(err, message) { 
+		// send a copy of the message if copy is requested
+		if(copy != undefined && copy == 'on'){
+			server.send({
+			   text:    "This email is a confirmation that you have sent the following message to Kaijian Gao: \n" + message_content, 
+			   from:    "Kaijian Gao <contact@kaijiangao.com>", 
+			   to:      name+" <"+email_address+">",
+			   cc:      "",
+			   subject: "Confirmation for the message you sent to Gao"
+			}, function(err, message) { console.log(err || message); });
+		}
 
-	res.json({
-		response: 'message has been sent!'
+		console.log(err || message); 
+		if(err){
+			console.log('=====Error message!!=====: '+err);
+			res.send('Failed to send message because of error: '+err, 500);
+		} else {
+			//success!
+			res.json({
+				response: 'message has been sent!'
+			});
+		}
 	});
+
+	
+
 
 
 });

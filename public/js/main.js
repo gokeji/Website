@@ -35,9 +35,7 @@ $(document).ready(function ($) {
     // });
 
 	//start carousel animation
-	$('.carousel').carousel({
-		interval: 3000
-	});
+	$('.carousel').carousel();
     // Redirect external links
 	$("a[rel='external']").click(function(){
 		this.target = "_blank";
@@ -46,11 +44,17 @@ $(document).ready(function ($) {
 	$('#contactForm').on('submit', function(e){
 		e.preventDefault();
 
+	    clearFormErrors(function(){
+	    	$('#contactForm > .form-group:first-child > .help-block').html('Sending message...');
+	    });
+
 	    // create a FormData dataObject from our form
 	    var fd = new FormData(document.getElementById('contactForm'));
 
 	    // send it to the server
 	    var req = new XMLHttpRequest();
+
+	    
 
 
 	    req.onreadystatechange=function()
@@ -67,7 +71,15 @@ $(document).ready(function ($) {
 		    	return;
 		  	}
 
+		  	else if (req.readyState==4 && req.status==500){
+		    	clearFormErrors();
+		    	formFail();
+		    	console.log('error: ' + req.statusText);
+		    	return;
+		  	}
+
 		  	else if (req.readyState==4){
+		    	formFail();
 		  		console.log('error: ' + req.statusText);
 		  	}
 		}
@@ -103,13 +115,23 @@ var formHandler = function(data){
 	}
 }
 
-var clearFormErrors = function(){
+var clearFormErrors = function(callback){
 	$('#contactForm > .form-group').removeClass('has-error has-success');
 	$('#contactForm > .form-group > .help-block').html('');
+
+	if (Object.prototype.toString.call(callback) == "[object Function]") {
+      callback(); 
+    }
 }
 
 var formSuccess = function(){
 	$('#contactForm > .form-group').addClass('has-success');
 	$('#contactForm > .form-group:first-child > .help-block').html('Message sent!');
+	
+}
+
+var formFail = function(){
+	$('#contactForm > .form-group').addClass('has-error');
+	$('#contactForm > .form-group:first-child > .help-block').html('Message could not be sent. Please try again later or send an email to contact@kaijiangao.com');
 	
 }
