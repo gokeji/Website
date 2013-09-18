@@ -35,7 +35,7 @@ $(document).ready(function ($) {
     // });
 
 	//start carousel animation
-	$('.carousel').carousel();
+	// $('.carousel').carousel();
     // Redirect external links
 	$("a[rel='external']").click(function(){
 		this.target = "_blank";

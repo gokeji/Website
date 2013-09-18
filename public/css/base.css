@@ -223,9 +223,20 @@ i {
 		line-height: 1;
 	}
 	.carousel-inner > div {
-		height: 500px;
+		min-height: 700px;
 		background: #eee;
+		text-align: center;
+		color: black;
 	}
+
+		.carousel-inner img {
+			width: 80%;
+			height: auto;
+		}
+
+		.carousel-inner p {
+			padding: 0px 10%;
+		}
 
 	.carousel-control {
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -261,7 +272,7 @@ i {
 		z-index: 5;
 		margin: 0px;
 		list-style: none;
-		width: 45px;
+		width: 90px;
 		height: 10px;
 		left: auto;
 
@@ -271,6 +282,19 @@ i {
 	background-color: white;
 	min-height: 500px;
 }
+
+	#Experience h4 {
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+
+	#Experience .float-right {
+		float: right;
+	}
+
+	#Experience ul {
+		margin-bottom: 40px;
+	}
 
 #Contact {
 	background-color: silver;
