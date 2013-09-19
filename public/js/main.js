@@ -30,6 +30,10 @@ $(document).ready(function ($) {
 	    // $('#navbar').offset({top: $('body').scrollTop(), left:0});
     });
 
+    window.onorientationchange = function(){
+    	homeResize();
+    }
+
     // $(window).scroll(function(){
 	   //  // fix bug where navbar wouldn't stay on top in iphone
 	   //  $('#navbar').offset({top: $('body').scrollTop(), left:0});
@@ -90,7 +94,6 @@ $(document).ready(function ($) {
 	});
 
 	$('#projectsTab').on('activate', function(){
-		console.log('#main-nav');
 		if(!projectsAnimated) {
 			// create popovers
 
