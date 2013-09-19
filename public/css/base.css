@@ -222,20 +222,23 @@ i {
 	.carousel {
 		line-height: 1;
 	}
-	.carousel-inner > div {
-		min-height: 700px;
-		background: #eee;
-		text-align: center;
-		color: black;
-	}
+
+		.carousel-inner > div {
+			min-height: 700px;
+			text-align: center;
+			color: black;
+			background-color: rgba(230,230,230,0.9);
+		}
 
 		.carousel-inner img {
-			width: 80%;
-			height: auto;
+			max-height: 450px;
+			max-width: 80%;
+			margin-bottom: 20px;
 		}
 
 		.carousel-inner p {
 			padding: 0px 10%;
+			font-size: 1.2em;
 		}
 
 	.carousel-control {
@@ -277,6 +280,10 @@ i {
 		left: auto;
 
 	}
+
+	/*.carousel-indicators .active {
+		background-color: black;
+	}*/
 
 #Experience {
 	background-color: white;
