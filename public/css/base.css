@@ -278,12 +278,23 @@ i {
 		width: 90px;
 		height: 10px;
 		left: auto;
+	}
 
+	.carousel-indicators li {
+		/*border-color: #5A5959;*/
+	}
+
+	.carousel-indicators .active{
+		/*background-color: #5A5959;*/
 	}
 
 	/*.carousel-indicators .active {
 		background-color: black;
 	}*/
+
+	.popover-content {
+		color: black;
+	}
 
 #Experience {
 	background-color: white;

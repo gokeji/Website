@@ -1,4 +1,5 @@
 var navbarHeight = 50;
+var projectsAnimated = false;
 
 $(document).ready(function ($) {
 
@@ -87,6 +88,25 @@ $(document).ready(function ($) {
 	    req.open('POST', '/message', true);
 	    req.send(fd);
 	});
+
+	$('#projectsTab').on('activate', function(){
+		console.log('#main-nav');
+		if(!projectsAnimated) {
+			// create popovers
+
+			$('.carousel-control.right').popover({trigger: 'manual', placement: 'left'});
+			$('.carousel-control.right').popover('show');
+			$('.carousel-control.left').popover({trigger: 'manual', placement: 'right'});
+			$('.carousel-control.left').popover('show');
+			projectsAnimated = true;
+		}
+	});
+
+	$('#Projects').on('click', function(){
+		$('.carousel-control.right').popover('hide');
+		$('.carousel-control.left').popover('hide');
+	});
+
 });
 
 // function that resizes the Home section to the full size of the viewport
