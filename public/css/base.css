@@ -144,6 +144,8 @@ i {
 	position: relative;
 	overflow: hidden;
 	padding-top: 50px;
+
+	min-height: 360px;
 	
 }
 
