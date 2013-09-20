@@ -105,6 +105,10 @@ i {
   -webkit-overflow-scrolling: touch;
 }
 
+.my-fluid-container > * {
+    -webkit-transform: translateZ(0px);
+}
+
 .section {
 	background-attachment: scroll;
 	background-position: right center;
@@ -206,7 +210,7 @@ i {
 	-o-background-size: auto 100%;
 	background-size: auto 100%; 
 	background-position: center center;
-	background-attachment: fixed;
+	background-attachment: scroll;
 	color: white;
 }
 
