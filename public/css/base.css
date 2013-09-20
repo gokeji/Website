@@ -4,7 +4,7 @@ html {
 
 body {
 	padding-top: 50px;
-	/*position: fixed;*/
+	position: fixed; /* Remove for original scrolling */
 }
 
 h2 {
@@ -53,7 +53,8 @@ i {
 }
 
 #navbar {
-	position: fixed;
+	position: absolute; /* Remove for original scrolling */
+	/*position: fixed;*/
 }
 
 	#navbar a{
@@ -100,7 +101,7 @@ i {
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  /*overflow: scroll;*/
+  overflow: scroll; /* Remove for original scrolling */
 }
 
 .section {
@@ -155,6 +156,7 @@ i {
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
+		/*background-size: 100% auto;*/
 		background-attachment: fixed;
 		position: absolute;
 		height: 100%;

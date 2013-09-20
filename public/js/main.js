@@ -8,11 +8,11 @@ $(document).ready(function ($) {
 
 
 	// Smooth scrolling to anchors
-  	var $root = $('html, body');
+  	var $root = $('.my-fluid-container'); //change to html, body for original scrolling
 	$('#navbar a, a.animate').click(function() {
 	    var href = $.attr(this, 'href');
 	    $root.animate({
-	        scrollTop: $(href).offset().top - navbarHeight
+	        scrollTop: $root.scrollTop() + $(href).position().top //- navbarHeight
 	    }, 500, function () {
 	        window.location.hash = href;
 
@@ -30,9 +30,9 @@ $(document).ready(function ($) {
 	    // $('#navbar').offset({top: $('body').scrollTop(), left:0});
     });
 
-    window.onorientationchange = function(){
-    	homeResize();
-    }
+    // window.onorientationchange = function(){
+    // 	homeResize();
+    // }
 
     // $(window).scroll(function(){
 	   //  // fix bug where navbar wouldn't stay on top in iphone
@@ -41,6 +41,7 @@ $(document).ready(function ($) {
 
 	//start carousel animation
 	// $('.carousel').carousel();
+	
     // Redirect external links
 	$("a[rel='external']").click(function(){
 		this.target = "_blank";
@@ -120,7 +121,7 @@ var homeResize = function(){
     $("#Home").css('width',w);
 
     // needed to make div scroll independantly, but removing feature
-    // $('.my-fluid-container').height(h);
+    $('.my-fluid-container').height(h);
 }
 
 // function that takes ajax response and looks for form errors to display
