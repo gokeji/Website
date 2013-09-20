@@ -105,10 +105,6 @@ i {
   -webkit-overflow-scrolling: touch;
 }
 
-.my-fluid-container > * {
-    -webkit-transform: translateZ(0px);
-}
-
 .section {
 	background-attachment: scroll;
 	background-position: right center;
@@ -152,7 +148,7 @@ i {
 }
 
 	#Home .vertical-push {
-		padding-top: 14%;
+		padding-top: 10%;
 	}
 
 	#intro-bg {
@@ -174,6 +170,10 @@ i {
 		background-color: rgba(255, 255, 255, 0.95);
 		border-radius: 25px;
 		float: right;
+	}
+
+	#intro-jumbo .btn.hidden-xs {
+		display: inline !important;
 	}
 
 #About {
@@ -210,7 +210,7 @@ i {
 	-o-background-size: auto 100%;
 	background-size: auto 100%; 
 	background-position: center center;
-	background-attachment: scroll;
+	background-attachment: fixed;
 	color: white;
 }
 
@@ -330,6 +330,7 @@ i {
 		width: 100%;
 	}
 
+/* Bootstrap md */
 @media screen and (max-width: 1200px) {
 	#quote1 {
 		padding-top: 40px;
@@ -342,6 +343,24 @@ i {
 	}
 }
 
+/* ipad landscape width! */
+@media screen and (max-width: 1024px){
+
+	
+	.my-fluid-container > * {
+	    -webkit-transform: translateZ(0px);
+	}
+
+	#Projects {
+		background-attachment: scroll;
+	}
+
+	#intro-bg {
+		background-attachment: scroll;
+	}
+}
+
+/* Bootstrap sm */
 @media screen and (max-width: 970px) {
 	#intro-bg {
 		background-repeat: no-repeat;
@@ -359,8 +378,10 @@ i {
 	.quote {
 		margin-top: 60px;
 	}
+
 }
 
+/* Bootstrap xs */
 @media screen and (max-width: 768px) {
 	#intro-bg {
 		width: 900px;
@@ -384,6 +405,14 @@ i {
 
 	h3 {
 		font-size: 3.4rem;
+	}
+
+	#intro-jumbo .btn.visible-xs {
+		display: inline !important;
+	}
+
+	#intro-jumbo .btn.hidden-xs {
+		display: none !important;
 	}
 }
 
@@ -420,5 +449,21 @@ i {
 
 	.carousel-control.right {
 		right: 0px;
+	}
+
+	#Home .vertical-push {
+		padding-top: 0%;
+	}
+
+	#intro-jumbo h1 {
+		font-size: 3rem;
+	}
+
+	#intro-jumbo p {
+		font-size: 1.3rem;
+	}
+
+	#intro-jumbo .btn {
+		font-size: 12px;
 	}
 }

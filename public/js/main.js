@@ -130,6 +130,11 @@ var homeResize = function(){
     // needed to make div scroll independantly, but removing feature
     $('body').css('padding-top', navHeight);
     $('.my-fluid-container').height(h);
+
+    // change button size accordingly
+    // if($(window).width() < 768){
+    	
+    // }
 }
 
 // function that takes ajax response and looks for form errors to display
