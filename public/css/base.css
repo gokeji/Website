@@ -102,6 +102,7 @@ i {
   margin-right: auto;
   position: relative;
   overflow: scroll; /* Remove for original scrolling */
+  -webkit-overflow-scrolling: touch;
 }
 
 .section {
