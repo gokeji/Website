@@ -95,14 +95,16 @@ $(document).ready(function ($) {
 	});
 
 	$('#projectsTab').on('activate', function(){
-		if(!projectsAnimated) {
-			// create popovers
+		if($(window).width() >= 768){
+			if(!projectsAnimated) {
+				// create popovers
 
-			$('.carousel-control.right').popover({trigger: 'manual', placement: 'left'});
-			$('.carousel-control.right').popover('show');
-			$('.carousel-control.left').popover({trigger: 'manual', placement: 'right'});
-			$('.carousel-control.left').popover('show');
-			projectsAnimated = true;
+				$('.carousel-control.right').popover({trigger: 'manual', placement: 'left'});
+				$('.carousel-control.right').popover('show');
+				$('.carousel-control.left').popover({trigger: 'manual', placement: 'right'});
+				$('.carousel-control.left').popover('show');
+				projectsAnimated = true;
+			}
 		}
 	});
 
@@ -111,16 +113,22 @@ $(document).ready(function ($) {
 		$('.carousel-control.left').popover('hide');
 	});
 
+	//activate fitText
+	// $('.carousel-inner p').each(function(){
+	// 	$(this).fitText();
+	// });
 });
 
 // function that resizes the Home section to the full size of the viewport
 var homeResize = function(){
-	var h = $(window).height() - $('#navbar').height();
+	var navHeight = $(window).width() < 768 ? 64 : 50; //hardcoded navbar height. DO NOT CHANGE NAVBAR HEIGHT
+	var h = $(window).height() - navHeight;
     var w = $(window).width();
     $("#Home").css('height',h);
     $("#Home").css('width',w);
 
     // needed to make div scroll independantly, but removing feature
+    $('body').css('padding-top', navHeight);
     $('.my-fluid-container').height(h);
 }
 

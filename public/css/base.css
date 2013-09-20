@@ -386,3 +386,39 @@ i {
 		font-size: 3.4rem;
 	}
 }
+
+@media screen and (max-width: 650px) {
+	.carousel-inner > div {
+		min-height: 600px;
+	}
+
+	.carousel-inner p {
+		font-size: 1em;
+	}
+
+	.carousel-inner h3 {
+		font-size: 2.4rem;
+	}
+
+	.carousel-control.left {
+		left: 5px;
+	}
+
+	.carousel-control.right {
+		right: 5px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.carousel-inner > div {
+		min-height: 500px;
+	}
+
+	.carousel-control.left {
+		left: 0px;
+	}
+
+	.carousel-control.right {
+		right: 0px;
+	}
+}
