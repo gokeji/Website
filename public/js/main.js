@@ -103,14 +103,15 @@ $(document).ready(function ($) {
 				$('.carousel-control.right').popover('show');
 				$('.carousel-control.left').popover({trigger: 'manual', placement: 'right'});
 				$('.carousel-control.left').popover('show');
-				projectsAnimated = true;
 			}
 		}
+		projectsAnimated = true;
 	});
 
 	$('#Projects').on('click', function(){
 		$('.carousel-control.right').popover('hide');
 		$('.carousel-control.left').popover('hide');
+		$('.popover').hide(); // I don't know why the popover appears even.. but it does
 	});
 
 	//activate fitText
@@ -133,7 +134,7 @@ var homeResize = function(){
 
     // change button size accordingly
     // if($(window).width() < 768){
-    	
+
     // }
 }
 

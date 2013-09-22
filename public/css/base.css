@@ -49,8 +49,17 @@ i {
 }
 
 .btn-primary:hover{
-	background-color: white;
+	background-image: -webkit-gradient(linear,0 0,0 100%,from(#5D84AF),color-stop(50%,#345E8B),to(#2E547D));
+	background-image: -webkit-linear-gradient(#5D84AF,#345E8B 50%,#2E547D);
+	background-image: -moz-linear-gradient(top,#5d84af,#345e8b 50%,#2e547d);
 	background-image: linear-gradient(#5D84AF,#345E8B 50%,#2E547D);
+}
+
+.btn-info:hover{
+	background-image: -webkit-gradient(linear,0 0,0 100%,from(#6BADE7),color-stop(50%,#2389E3),to(#107FE2));
+	background-image: -webkit-linear-gradient(#6BADE7,#2389E3 50%,#107FE2);
+	background-image: -moz-linear-gradient(top,#6bade7,#2389e3 50%,#107fe2);
+	background-image: linear-gradient(#6BADE7,#2389E3 50%,#107FE2);
 }
 
 #navbar {
