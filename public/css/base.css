@@ -118,7 +118,8 @@ i {
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  overflow: scroll; /* Remove for original scrolling */
+  overflow-y: scroll; /* Remove for original scrolling */
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
