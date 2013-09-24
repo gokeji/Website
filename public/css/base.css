@@ -75,6 +75,13 @@ i {
 	#brand {
 		padding-left: 20px;
 		font-size: 20px;
+		/*background-image: url('../images/logo.svg');
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		background-position: center center;
+		text-indent: -9999px;
+		margin-left: 30px;
+		margin-right: 20px;*/
 	}
 
 	#brand.active {
@@ -290,11 +297,11 @@ i {
 	.carousel-indicators {
 		position: absolute;
 		top: 15px;
-		right: 15px;
+		right: 20px;
 		z-index: 5;
 		margin: 0px;
 		list-style: none;
-		width: 90px;
+		width: 100px;
 		height: 10px;
 		left: auto;
 	}
