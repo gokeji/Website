@@ -323,6 +323,10 @@ i {
 		color: black;
 	}
 
+	p.technologies{
+		font-weight: 600;
+	}
+
 #Experience {
 	background-color: white;
 	min-height: 500px;
