@@ -258,7 +258,7 @@ i {
 		}
 
 		.carousel-inner img {
-			max-height: 450px;
+			max-height: 430px;
 			max-width: 80%;
 			margin-bottom: 20px;
 		}
@@ -302,7 +302,7 @@ i {
 		z-index: 5;
 		margin: 0px;
 		list-style: none;
-		width: 100px;
+		width: 120px;
 		height: 10px;
 		left: auto;
 	}
@@ -460,7 +460,7 @@ i {
 
 @media screen and (max-width: 500px) {
 	.carousel-inner > div {
-		min-height: 500px;
+		min-height: 520px;
 	}
 
 	.carousel-control.left {

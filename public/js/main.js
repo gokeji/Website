@@ -40,7 +40,7 @@ $(document).ready(function ($) {
     // });
 
 	//start carousel animation
-	// $('.carousel').carousel();
+	$('.carousel').carousel({interval: 8000});
 	
     // Redirect external links
 	$("a[rel='external']").click(function(){
@@ -111,7 +111,18 @@ $(document).ready(function ($) {
 	$('#Projects').on('click', function(){
 		$('.carousel-control.right').popover('hide');
 		$('.carousel-control.left').popover('hide');
-		$('.popover').hide(); // I don't know why the popover appears even.. but it does
+		//$('.popover').hide(); // I don't know why the popover appears even.. but it does
+	});
+
+	$(document).keyup(function(event){
+		if(event.which == 39){
+			// right arrow key
+			$('.carousel-control.right').click();
+		}
+		if(event.which == 37){
+			// right arrow key
+			$('.carousel-control.left').click();
+		}
 	});
 
 	//activate fitText
