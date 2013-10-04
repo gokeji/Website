@@ -354,6 +354,25 @@ i {
 		width: 100%;
 	}
 
+	#career2Badge{
+		width: 140px;
+		height: 30px;
+		margin: 10px;
+		background-color: #EEE;
+		border-color: #555;
+		background-image: -webkit-gradient(linear,0 0,0 100%,from(#FFF),color-stop(50%,#DDD),to(#888));
+		background-image: -webkit-linear-gradient(#FFF,#DDD 50%,#888);
+		background-image: -moz-linear-gradient(top,#FFF,#DDD 50%,#888);
+		background-image: linear-gradient(#FFF,#DDD 50%,#888);
+	}
+
+		#career2Badge > img {
+			width: 90%;
+			height: 100%;
+			top: -3px;
+			position: relative;
+		}
+
 /* Bootstrap md */
 @media screen and (max-width: 1200px) {
 	#quote1 {
