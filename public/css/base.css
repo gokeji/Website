@@ -404,7 +404,7 @@ i {
 }
 
 /* Bootstrap sm */
-@media screen and (max-width: 970px) {
+@media screen and (max-width: 991px) {
 	#intro-bg {
 		background-repeat: no-repeat;
 		left: 50%;
@@ -420,6 +420,10 @@ i {
 
 	.quote {
 		margin-top: 60px;
+	}
+
+	#socialMedia {
+		margin-top: 50px;
 	}
 
 }
