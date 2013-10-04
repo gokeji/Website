@@ -354,6 +354,12 @@ i {
 		width: 100%;
 	}
 
+	#linkedinBadge > img{
+		width: 160px;
+		height: 50px;
+		border: 0px;
+	}
+
 	#career2Badge{
 		width: 140px;
 		height: 30px;
