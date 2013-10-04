@@ -5,6 +5,8 @@ html {
 body {
 	padding-top: 50px;
 	position: fixed; /* Remove for original scrolling */
+	width: 100%;
+	min-width: 400px;
 }
 
 h2 {
