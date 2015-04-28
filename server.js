@@ -4,7 +4,9 @@ var util = require('util'),
     app = express(),
     email = require("./node_modules/emailjs/email");
 
-app.use(express.bodyParser());
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 app.use(express.static(__dirname + '/public'));
@@ -40,7 +42,7 @@ app.post('/message', function(req, res){
 	// send email
 	var server  = email.server.connect({
 	   user:    "contact@kaijiangao.com", 
-	   password:"migtruelymig", 
+	   password:"", 
 	   host:    "smtpout.secureserver.net", 
 	   ssl:     true
 
@@ -83,6 +85,6 @@ app.post('/message', function(req, res){
 
 });
 
-app.listen(3000, function(){
+app.listen(3000, '', '', function(){
 	console.log('- website running on port 3000');
 });
