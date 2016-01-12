@@ -17,31 +17,31 @@ h3 {
 	font-size: 4rem;
 }
 
-cite:before { 
+cite:before {
 	content: '\201C';
 	font-size: 2.2em;
-	font-family: 'Times New Roman', Times, serif; 
-	padding-right: 14px;  
+	font-family: 'Times New Roman', Times, serif;
+	padding-right: 14px;
 	color: #F83E5B;
 	margin-left: -10px;
 	float: left;
 	margin-top: -20px;
 }
 
-cite:after { 
-	content: '\201D'; 
+cite:after {
+	content: '\201D';
 	font-size: 2.2em;
 	padding-left: 10px;
-	font-family: 'Times New Roman', Times, serif; 
+	font-family: 'Times New Roman', Times, serif;
 	line-height: 1em;
 	color: #F83E5B;
 	float: right;
 }
 
 .strong-quotations {
-	margin-top: -14px; 
-	height: auto; 
-	font-size:2.2rem; 
+	margin-top: -14px;
+	height: auto;
+	font-size:2.2rem;
 	padding-right: 10px;
 }
 
@@ -87,7 +87,7 @@ i {
 	}
 
 	#brand.active {
-		
+
 	}
 	#brand.active a{
 		/*color: #000055;*/
@@ -130,7 +130,7 @@ i {
 	background-position: right center;
 	/*min-height: 750px;*/
 }
-	
+
 	.section .vertical-push{
 		padding: 40px 0px 140px 0px;
 	}
@@ -156,7 +156,7 @@ i {
 		padding: 0px 30px;
 
 	}
-	
+
 
 #Home {
 	background:#7f8c8d;
@@ -166,7 +166,7 @@ i {
 	padding-top: 50px;
 
 	min-height: 360px;
-	
+
 }
 
 	#Home .vertical-push {
@@ -174,7 +174,7 @@ i {
 	}
 
 	#intro-bg {
-		background-image: url('../images/intro-bg2.jpg');
+		background-image: url('../backup/images/intro-bg2.jpg');
 		-webkit-background-size: cover;
 		-moz-background-size: cover;
 		-o-background-size: cover;
@@ -226,11 +226,11 @@ i {
 
 #Projects {
 	background-color: silver;
-	background-image: url('../images/projects-bg.jpg');
+	background-image: url('../backup/images/projects-bg.jpg');
 	-webkit-background-size: auto 100%;
 	-moz-background-size: auto 100%;
 	-o-background-size: auto 100%;
-	background-size: auto 100%; 
+	background-size: auto 100%;
 	background-position: center center;
 	background-attachment: fixed;
 	color: white;
@@ -397,7 +397,7 @@ i {
 /* ipad landscape width! */
 @media screen and (max-width: 1024px){
 
-	
+
 	.my-fluid-container > * {
 	    -webkit-transform: translateZ(0px);
 	}

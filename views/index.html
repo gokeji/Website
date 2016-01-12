@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>kaijian gao.</title>
+    <meta name="description" content="The artistic scientist">
+    <meta name="author" content="Kaijian Gao" >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <!--<meta property="og:title" content="Gao's online portfolio" />-->
+    <!--<meta property="og:description" content="Gao is a software engineer living in Boston" />-->
+    <!--<meta property="og:image" content="http://kaijiangao.com/images/thumbnail-big.jpg" />-->
+    <!--<meta property="og:url" content="http://www.kaijiangao.com" />-->
+    <!--<link href="../bootstrap/css/bootstrap-spacegray.min.css" rel="stylesheet" media="screen">-->
+    <!-- <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="../public/images/favicon.ico">
+    <link href="css/page.css" rel="stylesheet" media="screen">
+
+</head>
+<body>
+<!--Body content-->
+<nav id="navbar" class="navbar navbar-fixed-top" role="navigation">
+    <a class="home-button" href="/"><img src="/images/logo@2x.png"/></a>
+    <ul id="main-nav" class="nav">
+        <li class="selected"><a href="/photography">Photography</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/music">Music</a></li>
+    </ul>
+</nav>
+
+<div id="gallery">
+    {{#images}}
+    <div class="galleryItem">
+        <img class="photo" src="{{path}}"/>
+        <div class="metadata">
+            <span><span class="strong">{{name}}</span> {{year}}</span>
+            <span>f{{exif.FNumber}}</span>
+            <span>ss {{exif.ExposureTime}}</span>
+            <span>{{exif.FocalLength}}mm</span>
+            <span>ISO {{exif.ISO}}</span>
+        </div>
+    </div>
+    {{/images}}
+</div>
+
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
+
+</body>
+</html>
