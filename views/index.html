@@ -32,11 +32,11 @@
     <div class="galleryItem">
         <img class="photo" src="{{path}}"/>
         <div class="metadata">
-            <span><span class="strong">{{name}}</span> {{year}}</span>
-            <span>f{{exif.FNumber}}</span>
-            <span>ss {{exif.ExposureTime}}</span>
-            <span>{{exif.FocalLength}}mm</span>
-            <span>ISO {{exif.ISO}}</span>
+            <span><span class="name">{{name}}</span> {{year}}</span>
+            <span><span class="icon"></span>f{{exif.FNumber}}</span>
+            <span><span class="icon"></span>SS {{exif.ExposureTime}}</span>
+            <span><span class="icon"></span>{{exif.FocalLength}}mm</span>
+            <span><span class="icon"></span>ISO {{exif.ISO}}</span>
         </div>
     </div>
     {{/images}}
