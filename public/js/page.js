@@ -64,10 +64,6 @@ $(document).ready(function() {
         scrollToPic(currentPhoto);
     });
 
-    document.ontouchmove = function(event){
-        event.preventDefault();
-    }
-
     //$(window).trigger("scroll");
 });
 
