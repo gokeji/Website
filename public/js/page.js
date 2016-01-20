@@ -42,6 +42,12 @@ $(document).ready(function() {
         if (currentPhoto > 0) {
             currentPhoto--;
         }
+
+        if (currentPhoto == 0) {
+            $("#prevPhoto").hide();
+        }
+
+        $("#nextPhoto").show();
         scrollToPic(currentPhoto);
     });
 
@@ -49,10 +55,20 @@ $(document).ready(function() {
         if (currentPhoto < photoCount - 1) {
             currentPhoto++;
         }
+
+        if (currentPhoto == photoCount - 1) {
+            $("#nextPhoto").hide();
+        }
+
+        $("#prevPhoto").show();
         scrollToPic(currentPhoto);
     });
 
-    $(window).trigger("scroll");
+    document.ontouchmove = function(event){
+        event.preventDefault();
+    }
+
+    //$(window).trigger("scroll");
 });
 
 function scrollToPic(index) {
