@@ -30,7 +30,8 @@
 <div id="gallery">
     {{#images}}
     <div class="galleryItem">
-        <img class="photo" src="{{path}}"/>
+        <!--<img class="photo" src="{{path}}"/>-->
+        <div class="photo" style="background-image: url('{{path}}')"></div>
         <div class="metadata">
             <span><span class="name">{{name}}</span> {{year}}</span>
             <span><span class="icon"></span>f{{exif.FNumber}}</span>
@@ -41,8 +42,11 @@
     </div>
     {{/images}}
 </div>
-<div id="prevPhoto"></div>
-<div id="nextPhoto"></div>
+<!-- <div id="prevPhoto"></div>
+<div id="nextPhoto"></div> -->
+<div id="footer">
+    
+</div>
 
 <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
 <script type="text/javascript" src="js/page.js"></script>
