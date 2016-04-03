@@ -5,7 +5,8 @@ $(document).ready(function() {
     $('.photo').click(function(e){
         var photo = $(e.currentTarget);
         var src = photo.data('src');
-        var image = $('img').attr('src', src);
+        var image = $('<img>').attr('src', src);
+        $('#spotlight').html('');
         $('#spotlight').append(image);
         $('#spotlight-overlay').show();
         $('body').addClass('overlay');
