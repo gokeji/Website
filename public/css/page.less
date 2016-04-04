@@ -140,16 +140,16 @@ a {
     cursor: pointer;
 }
 
-#spotlight {
+#spotlight-container {
     background: white;
     transform: translate3d(-50%, -50%, 0);
     position: absolute;
-    top: 50%;
+    top: 47%;
     left: 50%;
 
     & > img {
-        max-width: 90vw;
-        max-height: 95vh;
+        max-width: 94vw;
+        max-height: 92vh;
         display: block;
     }
 }
@@ -169,8 +169,13 @@ a {
 }
 
 .metadata {
-    clear: both;
-    padding: 30px 0 20px 0;
+    position: absolute;
+    bottom: -7.5vh;
+    height: 5vh;
+    width: 100vw;
+    text-align: center;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
     display: none;
 
     & > span {
@@ -193,6 +198,10 @@ a {
             vertical-align: baseline;
         }
     }
+}
+
+#spotlight-container .metadata {
+    display: block;
 }
 
 #footer {

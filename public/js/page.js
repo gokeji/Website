@@ -5,11 +5,14 @@ $(document).ready(function() {
     $('.photo').click(function(e){
         var photo = $(e.currentTarget);
         var src = photo.data('src');
-        var image = $('<img>').attr('src', src);
+        var image = $('#spotlight-image').attr('src', src);
         $('#spotlight').html('');
         $('#spotlight').append(image);
         $('#spotlight-overlay').show();
         $('body').addClass('overlay');
+
+        var metadata = photo.parent().find('.metadata');
+        $('#spotlight-container .metadata').html(metadata.html());
     });
 
     $('#spotlight-overlay').click(function(e){

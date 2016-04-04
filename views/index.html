@@ -31,19 +31,22 @@
     {{#images}}
     <div class="galleryItem">
         <!--<img class="photo" src="{{path}}"/>-->
-        <div class="photo" style="background-image: url('{{path}}')" data-src="{{path}}"></div>
+        <div class="photo" style="background-image: url('{{path}}')"</div>
         <div class="metadata">
-            <span><span class="name">{{name}}</span> {{year}}</span>
-            <span><span class="icon"></span>f{{exif.FNumber}}</span>
-            <span><span class="icon"></span>SS {{exif.ExposureTime}}</span>
-            <span><span class="icon"></span>{{exif.FocalLength}}mm</span>
-            <span><span class="icon"></span>ISO {{exif.ISO}}</span>
+            <span><span id="name">{{name}}</span><span id="year"> {{year}}</span></span>
+            <span><span id="aperture" class="icon"></span>f{{exif.FNumber}}</span>
+            <span><span id="exposure" class="icon"></span>SS {{exif.ExposureTime}}</span>
+            <span><span id="focalLength" class="icon"></span>{{exif.FocalLength}}mm</span>
+            <span><span id="iso" class="icon"></span>ISO {{exif.ISO}}</span>
         </div>
     </div>
     {{/images}}
 </div>
 <div id="spotlight-overlay">
-    <div id="spotlight"></div>
+    <div id="spotlight-container">
+        <img id="spotlight-image" src=""/>
+        <div class="metadata"></div>
+    </div>
 </div>
 <!-- <div id="prevPhoto"></div>
 <div id="nextPhoto"></div> -->
